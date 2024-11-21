@@ -30,43 +30,6 @@ void wait_instructions(void)
 }
 
 
-//void AI_SET_Chess(什么棋，放哪里)
-void AI_SET_Chass(int what,int X,int y)
-{
-	//..............................................
-	/*控制吸盘到指定位置
-	
-	.........( Control_set_chess(what,x,y); )
-	
-	实现代码
-	void Control_set_chess(int what,int X,int y)
-	{
-		//此处为控制代码
-	
-	}
-	
-	*/	
-	
-	
-	//...........................................
-	/*用于在棋盘上记录棋子
-	
-	.........( record_chess(x,y); )
-	
-	实现代码：
-	void record_chess(int what,int x,int y)
-	{
-		board[x][y]=what;
-	}
-	
-	*/
-	Delay_s(15);
-}
-
-
-
-
-
 int MAN_result_five(void)
 {
 	
@@ -91,16 +54,20 @@ void machine_open(void)
 {
 		    //此函数装置执黑棋放入五号位（天元）
 			xiaqi(-1,5);//5//换成机械臂控制
+			LED8_ON();
 	
 			digit_to_Mark(5,-1);
 			memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
 	
 			//此函数用于接收唯一指定按键给装置的行动指令
 			wait_instructions();
+			LED8_OFF();
+			
 			//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
 			request_vision();//此函数用于向k210发送串口数据
 			Awaiting_Vision();//用于接受串口传送的信息，收到键码更改时，跳出循环
 			                 //储存人走之后的棋局
+			
 	
 			//作用为机器检测人下棋的位置，并将该位值记录下来
 			int where_num_coordinate=MAN_SET_Chess();//检测人落子位置，并记入数组，计入board[][] 
@@ -110,6 +77,7 @@ void machine_open(void)
 			{
 			case 2:
 			    xiaqi(-1,7);//7
+				LED8_ON();
 			 
 			
 				digit_to_Mark(7,-1);
@@ -118,8 +86,9 @@ void machine_open(void)
 				
 				//此函数用于接收唯一指定按键给装置的行动指令
 				wait_instructions();
-			    GPIO_ResetBits(GPIOA, GPIO_Pin_8);
-				//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
+				LED8_OFF();
+			
+			
 				request_vision();//此函数用于向k210发送串口数据
 				Awaiting_Vision();//用于接受串口传送的信息，收到键码更改时，跳出循环
 								 //储存人走之后的棋局
@@ -129,20 +98,19 @@ void machine_open(void)
 			   {
 				   
 					 xiaqi(-1,3);//3
-				   
-				   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					LED8_ON();
 			   }
 			   else if(where_num_coordinate==3)
 			   {
 					 xiaqi(-1,1);//1
-				   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				   LED8_ON();
 				   
 				   digit_to_Mark(1,-1);
 				   memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
 				   
 					//此函数用于接收唯一指定按键给装置的行动指令
 					wait_instructions();
-				     GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+				     LED8_OFF();
 					request_vision();//此函数用于向k210发送串口数据
 					//此函数用于判断视觉是否传递棋盘信息
 					Awaiting_Vision();//用于接受串口传送的信息，收到键码更改时，跳出循环
@@ -151,7 +119,7 @@ void machine_open(void)
 				   if(where_num_coordinate==4)
 				   {
 					 xiaqi(-1,9);//9
-					 GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					 LED8_ON();	
 					   //-1   1   1 
 					   // 1  -1   0
 					   //-1   0  -1
@@ -159,7 +127,7 @@ void machine_open(void)
 				   else
 				   {
 						  xiaqi(-1,4);
-					   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					   LED8_ON();	
 					   //-1   1  1 
 					   //-1  -1  0
 					   //-1   0  1
@@ -170,10 +138,11 @@ void machine_open(void)
 			
 			case 4:
 			    xiaqi(-1,9);//9
+				LED8_ON();
 				digit_to_Mark(9,-1);
 				memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
 			
-			GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				
 			/*
 				0  0  0
 			    1 -1  0
@@ -181,7 +150,7 @@ void machine_open(void)
 			*/
 				//此函数用于接收唯一指定按键给装置的行动指令
 				wait_instructions();
-			    GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+			   LED8_OFF();
 				//此函数用于判断视觉是否传递棋盘信息				//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
 				request_vision();//此函数用于向k210发送串口数据
 
@@ -191,7 +160,7 @@ void machine_open(void)
 			   if(where_num_coordinate!=1)
 			   {
 					 xiaqi(-1,1);//1
-				   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				   LED8_ON();
 				/*
 				   -1  0  0
 					1 -1  0
@@ -201,7 +170,7 @@ void machine_open(void)
 			   else if(where_num_coordinate==1)
 			   {
 					 xiaqi(-1,7);//7
-				   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				   LED8_ON();
 				   digit_to_Mark(7,-1);
 				   memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
 		    /*
@@ -211,8 +180,7 @@ void machine_open(void)
 			*/   
 				//此函数用于接收唯一指定按键给装置的行动指令
 				wait_instructions();
-				GPIO_ResetBits(GPIOA, GPIO_Pin_8);
-				//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
+				LED8_OFF();
 				request_vision();//此函数用于向k210发送串口数据
 				//此函数用于判断视觉是否传递棋盘信息
 				Awaiting_Vision();//用于接受串口传送的信息，收到键码更改时，跳出循环
@@ -221,7 +189,7 @@ void machine_open(void)
 				   if(where_num_coordinate==3)
 				   {
 					  xiaqi(-1,7);//7
-					   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					  LED8_ON();	
 					   // 1   0   1 
 					   // 1  -1   0
 					   //-1  -1  -1
@@ -229,7 +197,7 @@ void machine_open(void)
 				   else
 				   {
 					   xiaqi(-1,3);//3
-					   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					  LED8_ON();	
 					   // 1   1  -1 
 					   // 1  -1   0
 					   //-1   0  -1
@@ -238,18 +206,18 @@ void machine_open(void)
 				break;
 			case 6:
 			    xiaqi(-1,1);//1
+				LED8_ON();
 				digit_to_Mark(1,-1);
 				memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
 			
-				GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					
 				//-1  0   0
 				//0  -1   1
 				//0   0   0
 		  
 				//此函数用于接收唯一指定按键给装置的行动指令
 				wait_instructions();
-			     GPIO_ResetBits(GPIOA, GPIO_Pin_8);
-				//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
+			    LED8_OFF();
 				request_vision();//此函数用于向k210发送串口数据
 				//此函数用于判断视觉是否传递棋盘信息
 				Awaiting_Vision();//用于接受串口传送的信息，收到键码更改时，跳出循环
@@ -258,7 +226,7 @@ void machine_open(void)
 			   if(where_num_coordinate!=9)
 			   {
 					 xiaqi(-1,9);//9
-				     GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				     LED8_ON();	
 			   }
 			   else if(where_num_coordinate==9)
 			   {
@@ -266,17 +234,16 @@ void machine_open(void)
 				   //0  -1   1
 				   //0   0   1
 					xiaqi(-1,3);//3
+				   LED8_ON();
 				   digit_to_Mark(3,-1);
-				   memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
-				   
-					GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				   memcpy(last_board,board,sizeof(board));//存储人走之前的棋局	
 				   //-1  0  -1
 				   //0  -1   1
 				   //0   0   1
 					  
 					//此函数用于接收唯一指定按键给装置的行动指令
 					wait_instructions();
-				     GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+				    LED8_OFF();
 					//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
 					request_vision();//此函数用于向k210发送串口数据
 					//此函数用于判断视觉是否传递棋盘信息
@@ -289,7 +256,7 @@ void machine_open(void)
 				   //0  -1   1
 				   //0   0   1
 					  xiaqi(-1,7);//7
-					  GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					  LED8_ON();
 					 
 				   //-1  1  -1
 				   //0  -1   1
@@ -298,7 +265,7 @@ void machine_open(void)
 				   else
 				   {
 						 xiaqi(-1,2);//2
-					     GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					     LED8_ON();	
 					   //-1  -1  -1
 					   //0  -1   1
 					   //1   0   1
@@ -310,18 +277,19 @@ void machine_open(void)
 				break;
 			case 8:
 				 xiaqi(-1,3);
+				LED8_ON();
 				digit_to_Mark(3,-1);
 				memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
 			
 			
-			     GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+			     
 				//0   0   -1
 				//0  -1   0
 				//0   1   0
 			  
 				//此函数用于接收唯一指定按键给装置的行动指令
 				wait_instructions();
-			  GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+				LED8_OFF();
 				//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
 				request_vision();//此函数用于向k210发送串口数据
 				//此函数用于判断视觉是否传递棋盘信息
@@ -331,7 +299,7 @@ void machine_open(void)
 			   if(where_num_coordinate!=7)
 			   {
 				   xiaqi(-1,7);//7
-				   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				   LED8_ON();	
 				   //0   0   -1
 				   //0  -1    0
 				   //-1   1   0
@@ -343,16 +311,17 @@ void machine_open(void)
 					//0  -1   0
 					//1   1   0
 					 xiaqi(-1,9);//9
+				   LED8_ON();
 				   digit_to_Mark(9,-1);
 				   memcpy(last_board,board,sizeof(board));//存储人走之前的棋局
-				     GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+				    
 					//0   0  -1
 					//0  -1   0
 					//1   1  -1
 					  
 					//此函数用于接收唯一指定按键给装置的行动指令
 					wait_instructions();
-				    GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+				    LED8_OFF();
 					//GPIO_SetBits(GPIOA, GPIO_Pin_8);//收到指令 开始计时 指示灯亮起
 					request_vision();//此函数用于向k210发送串口数据
 					//此函数用于判断视觉是否传递棋盘信息
@@ -365,7 +334,7 @@ void machine_open(void)
 					//0  -1   1
 					//1   1  -1
 					  xiaqi(-1,1);//1
-					   GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					   LED8_ON();
 					//-1   0  -1
 					//0  -1   1
 					//1   1  -1
@@ -374,7 +343,7 @@ void machine_open(void)
 				   else
 				   {
 						 xiaqi(-1,6);
-					     GPIO_SetBits(GPIOA, GPIO_Pin_8);	
+					     LED8_ON();
 					//1   0  -1
 					//0  -1   -1
 					//1   1  -1
@@ -399,9 +368,9 @@ void man_open(void)
 		while(1)
 		{
 //.............................................................................................................................................
-			
+			time_return:
 			wait_instructions();
-			LED8_ON();
+			LED8_OFF();
 			
 			request_vision();//此函数用于向k210发送串口数据
 			Awaiting_Vision();//此函数用于判断视觉是否传递棋盘信息
@@ -417,9 +386,11 @@ void man_open(void)
 				int new_c=distinction_arr[0]!=0?distinction_arr[2]:distinction_arr[3];
 				OLED_ShowNum(1,1,old_c,1);
 				OLED_ShowNum(1,1,new_c,1);
-				six(old_c,new_c);
+				six(new_c,old_c);
 				
 				recorde_distinction=0;
+				goto time_return;////////////////////goto 
+				
 			}				
 			
 			best_result=computer_move(1);
@@ -429,7 +400,7 @@ void man_open(void)
 			
 			
 			xiaqi(1,best_result);
-			GPIO_SetBits(GPIOA, GPIO_Pin_8);
+			LED8_ON();
 			
 			digit_to_Mark(best_result,1);
 			memcpy(last_board,board,sizeof(board));				

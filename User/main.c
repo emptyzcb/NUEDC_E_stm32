@@ -16,6 +16,8 @@
 
 #include "Servomove.h"
 #include "SerialContral.h"
+
+#define TEXT zi6
 /*
 说明：
 	此程序中：
@@ -58,15 +60,16 @@ int main(void)
 
 
 
-		Delay_ms(1000);
+//		Delay_ms(1000);
 		
 		
 	  /////循环外面执行
 	  	//提子落子测试
 
-//		tizi(zi1);
-//		luozi(ge1);		
-		
+//		tizi(TEXT);
+//		Delay_ms(2000);
+//		luozi(ge4);		
+//		
 		//合体提子落子测试
 //		xiaqi(-1,1);
 //		Delay_ms(1500);
@@ -80,11 +83,11 @@ int main(void)
 
 
 //     	//测试第一二问
-		yiqi(10,5);//e代表走哪颗子    f代表几号格子
+//		yiqi(2,8);//e代表走哪颗子    f代表几号格子
 
 
 ////4,5问 下棋函数,执行此函数,输入需要提起子的颜色和落下格的编号,即可执行将其提起落下,并将机械臂返回原位
-//		xiaqi(int c,int d)//c -1为黑色,1为白色    d代表几号格子
+//		xiaqi(-1,7);//c -1为黑色,1为白色    d代表几号格子
 	
 
 
@@ -95,50 +98,62 @@ int main(void)
 	while(1)
 	{
 		//正经主程序
-//		switch(Mode)
-//		{
-//			case 0 : break;      
-//			case 1://第一二问解决方案
-//			//m++;
-//			if(start==1)
-//			{
-//			//	m++;
-//				yiqi(TI,FANG);
-//				start=0;
-//			}
-//				break;
-//			case 3:
-//				
-//				break;
-//			case 4:
-//				
-//				//此函数用于接收唯一指定按键给装置的行动指令，没有行动指令 不予执行下文程序
-//				wait_instructions();//用于接受串口传送的行动指令，在串口中更改键码值跳出此死循环            1
-//				LED8_OFF();	
-//				
-//				request_vision();//此函数用于向k210发送串口数据
-//				//此函数用于判断视觉是否传递棋盘信息
-//			
-//				Awaiting_Vision();//用于接受串口传送的信息，收到键码更改时，跳出循环
-//				
-//				OLED_ShowString(4,9,"no");
-//				judge=judge_the_opening();//用于先手判断，返回1 机器先手 返回0 人先手
-//			
-//				OLED_ShowNum(4,0,judge,3);
-//			
-//				switch(judge)
-//				{
-//					case 1://机器先手
-//							machine_open();//用于执行第四题的固定走法
-//							break;
-//					case 0://人先手				
-//							man_open();
-//							break;
-//			    }
-//				break;
-//			}
-//			//OLED_ShowNum(1,5,m,3);
-//			
+		switch(Mode)
+		{
+			case 0 : break;      
+			case 1://第一二问解决方案
+			//m++;
+			if(start==1)
+			{
+			//	m++;
+				yiqi(TI,FANG);
+				start=0;
+			}
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				//此函数用于接收唯一指定按键给装置的行动指令，没有行动指令 不予执行下文程序
+				wait_instructions();//用于接受串口传送的行动指令，在串口中更改键码值跳出此死循环            1
+				LED8_OFF();	
+				
+				request_vision();//此函数用于向k210发送串口数据
+				//此函数用于判断视觉是否传递棋盘信息
+			
+				Awaiting_Vision();//用于接受串口传送的信息，收到键码更改时，跳出循环
+				
+				OLED_ShowString(4,9,"no");
+				judge=judge_the_opening();//用于先手判断，返回1 机器先手 返回0 人先手
+			
+				OLED_ShowNum(4,0,judge,3);
+			
+				switch(judge)
+				{
+					case 1://机器先手
+							machine_open();//用于执行第四题的固定走法
+							break;
+					case 0://人先手				
+							man_open();
+							break;
+			    }
+				break;
+			}
+			//OLED_ShowNum(1,5,m,3);
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+			
+			
 			
 			
 		//机械臂调试函数
@@ -221,7 +236,7 @@ int main(void)
 //		}
 
 		//文本调试串口函数测试
-		Serialcmd();
+//		Serialcmd();
 
 
         //hex串口函数测试
@@ -274,7 +289,7 @@ int main(void)
 //		famen_ON();
 //		Delay_ms(1500);
 //		famen_OFF();
-		
+//		
 
 
 	  }

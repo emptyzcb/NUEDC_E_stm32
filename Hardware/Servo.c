@@ -9,19 +9,19 @@
 #define  	AnglefBEGIN 90//纵向
 #define  	AnglerBEGIN 90//纵向
 
-int speed=50;//舵机等待时间
+int speed=30;//舵机等待时间
 int Angleb,Anglef,Angler,flag=1;//Anglec,
 
 //舵机初始参数调整
 
-const int bMin = 30;
+const int bMin =  15;
 const int bMax = 170;
 
-const int fMin = 14;//前臂最小值
-const int fMax = 128;//前臂最大值
+const int fMin = 10;//前臂最小值
+const int fMax = 140;//前臂最大值
 
-const int rMin = 52;//后臂最小值
-const int rMax = 150;//后臂最大值
+const int rMin = 45;//后臂最小值
+const int rMax = 180;//后臂最大值
 
 //const int cMin = 0;
 //const int cMax = 100;
@@ -139,12 +139,13 @@ void angelshow(void)
 
 
 void Servomove(){//普通驱动所有舵机(直接驱动,比较粗鲁)
-	Servob(Angleb);
-	Delay_ms(10);
+	
 	Servof(Anglef);
-	Delay_ms(10);
+	Delay_ms(20);
 	Servor(Angler);
-	Delay_ms(10);
+	Delay_ms(20);
+	Servob(Angleb);
+	Delay_ms(20);
 //	Servoc(Anglec);
 //	Delay_ms(10);
 }
@@ -285,11 +286,12 @@ void servorCmd(int toPos) //r作例子 控制函数
 //}
 
 void ServoMove(){//普通驱动所有舵机(直接驱动,比较粗鲁)
-	servobCmd(Angleb);
-	Delay_ms(800);
+
 	servofCmd(Anglef);
 	Delay_ms(800);
 	servorCmd(Angler);
+	Delay_ms(800);
+	servobCmd(Angleb);
 	Delay_ms(800);
 //	servocCmd(Anglec);
 //	Delay_ms(10);

@@ -103,10 +103,10 @@ void Serialcmd(void)
 					OLED_ShowString(4, 1, "BWGINNING");
 					break;
 						
-				default:
-					Serial_SendString("ERROR_COMMAND\r\n");			//串口回传一个字符串ERROR_COMMAND
-					OLED_ShowString(4, 1, "                ");
-					OLED_ShowString(4, 1, "ERROR_COMMAND");			//OLED清除指定位置，并显示ERROR_COMMAND
+//				default:
+//					Serial_SendString("ERROR_COMMAND\r\n");			//串口回传一个字符串ERROR_COMMAND
+//					OLED_ShowString(4, 1, "                ");
+//					OLED_ShowString(4, 1, "ERROR_COMMAND");			//OLED清除指定位置，并显示ERROR_COMMAND
 					
 			}
 					
